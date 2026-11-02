@@ -352,7 +352,7 @@ const logout = asyncHandler(async (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? (process.env.COOKIE_SAME_SITE || 'none') : 'lax',
+    sameSite: process.env.COOKIE_SAME_SITE || (isProduction ? 'lax' : 'lax'),
     expires: new Date(0)
   });
 

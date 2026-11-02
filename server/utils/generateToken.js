@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
 
+const getJwtSecret = () => process.env.JWT_SECRET || 'examscanweb_production_secure_jwt_fallback_key_2026_x89a';
+
 const generateToken = (userId, res) => {
-  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+  const secret = getJwtSecret();
+  const token = jwt.sign({ id: userId }, secret, {
     expiresIn: process.env.JWT_EXPIRE || '7d'
   });
 
@@ -10,7 +13,7 @@ const generateToken = (userId, res) => {
   res.cookie('jwt', token, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? (process.env.COOKIE_SAME_SITE || 'none') : 'lax',
+    sameSite: process.env.COOKIE_SAME_SITE || (isProduction ? 'lax' : 'lax'),
     maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days in ms
   });
 
