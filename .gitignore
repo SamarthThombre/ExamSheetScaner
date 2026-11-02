@@ -9,7 +9,6 @@ __pycache__/
 # Production build outputs (compiled on server or CI)
 dist/
 build/
-docs/
 */dist/
 
 # Environment files with secrets
