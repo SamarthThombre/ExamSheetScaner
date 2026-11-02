@@ -1,0 +1,40 @@
+services:
+  # 1. Main Unified Web Service: Express REST API + Static React Frontend
+  - type: web
+    name: examscan-web
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm --prefix client install && npm --prefix client run build && npm --prefix server install
+    startCommand: cd server && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: COOKIE_SAME_SITE
+        value: lax
+      - key: OCR_API_KEY
+        value: ep_admin_master_secret_key_deploy2
+      - key: GOOGLE_CLIENT_ID
+        value: 384571428576-9gd4al45asr9f87i5b3055i6tb52sb05.apps.googleusercontent.com
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGO_URI
+        sync: false
+      - key: OCR_BASE_URL
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+
+  # 2. OCR Microservice: Python FastAPI (YOLOv8 + PaddleOCR)
+  - type: web
+    name: examscan-ocr
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: cd python/exam_paper_extractor && pip install -r requirements.txt && pip install opencv-python-headless
+    startCommand: cd python/exam_paper_extractor && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12

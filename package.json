@@ -1,0 +1,15 @@
+{
+  "name": "examscanweb-app",
+  "version": "1.0.0",
+  "description": "Web-based exam marks management and OCR processing platform",
+  "scripts": {
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev",
+    "start": "npm --prefix server start",
+    "build": "npm --prefix client run build",
+    "serve": "npm run build && npm start"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}

@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.venv/
+*/.venv/
+__pycache__/
+*.pyc
+
+# Production build outputs (compiled on server or CI)
+dist/
+build/
+docs/
+*/dist/
+
+# Environment files with secrets
+.env
+.env.*
+!.env.example
+client/.env
+server/.env
+
+# Uploads & Temp storage
+uploads/*
+!uploads/.gitkeep
+server/uploads/*
+!server/uploads/.gitkeep
+*.log
+.DS_Store
+Thumbs.db
