@@ -5,8 +5,10 @@
   "scripts": {
     "server": "npm --prefix server run dev",
     "client": "npm --prefix client run dev",
+    "install:client": "npm --prefix client install --include=dev",
+    "install:server": "npm --prefix server install --production=false",
+    "build": "npm --prefix client install --include=dev && npm --prefix client run build && npm --prefix server install --production=false",
     "start": "npm --prefix server start",
-    "build": "npm --prefix client run build",
     "serve": "npm run build && npm start"
   },
   "dependencies": {
