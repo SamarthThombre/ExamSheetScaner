@@ -188,11 +188,13 @@ const IssuesPage = () => {
     return true;
   });
 
-  // Image absolute path resolution
+  // Image absolute path resolution (relative in production, localhost in dev)
   const resolvedImageSrc = modalImageUrl
-    ? modalImageUrl.startsWith('http')
-      ? modalImageUrl
-      : `http://localhost:5000${modalImageUrl}`
+    ? (modalImageUrl.startsWith('http')
+        ? modalImageUrl
+        : import.meta.env.MODE === 'production'
+        ? modalImageUrl
+        : `http://localhost:5000${modalImageUrl}`)
     : null;
 
   return (

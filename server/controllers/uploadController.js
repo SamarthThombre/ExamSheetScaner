@@ -160,13 +160,19 @@ const uploadBatchSheets = asyncHandler(async (req, res) => {
       console.log(`${progressTag} Evaluation SUCCESS -> Enrolment: "${sheetData.enrolment || 'N/A'}" (Conf: ${(sheetData.enrolmentConf * 100).toFixed(0)}%), Total Marks: ${sheetData.totalMarks || 'N/A'}, Questions: [Q1:${sheetData.q1 || '-'}, Q2:${sheetData.q2 || '-'}, Q3:${sheetData.q3 || '-'}, Q4:${sheetData.q4 || '-'}, Q5:${sheetData.q5 || '-'}], Status: ${statusLabel}`);
     } catch (err) {
       console.error(`${progressTag} Evaluation FAILED on "${file.originalname}":`, err.message);
+      const detailedError =
+        err.response?.data?.detail ||
+        (typeof err.response?.data === 'string' ? err.response.data : null) ||
+        err.response?.data?.message ||
+        err.message ||
+        'OCR processing failed';
       sheetData = {
         ...sheetData,
         uploadStatus: 'failed',
         statusLabel: 'ERROR',
         imageUrl: `/uploads/${file.filename}`,
         localImagePath: `/uploads/${file.filename}`,
-        errorMessage: err.message || 'OCR processing failed'
+        errorMessage: detailedError
       };
     }
 

@@ -158,10 +158,14 @@ const SheetDetailModal = ({
 
   const confidencePct = Math.round((sheet.enrolmentConf || 0) * 100);
 
-  // Construct image URL (relative to server origin)
+  // Construct image URL (relative to server origin in production, localhost in development)
   const imageRawPath = sheet.imageUrl || sheet.localImagePath;
   const imageSrc = imageRawPath
-    ? (imageRawPath.startsWith('http') ? imageRawPath : `http://localhost:5000${imageRawPath}`)
+    ? (imageRawPath.startsWith('http')
+        ? imageRawPath
+        : import.meta.env.MODE === 'production'
+        ? imageRawPath
+        : `http://localhost:5000${imageRawPath}`)
     : null;
 
   return (

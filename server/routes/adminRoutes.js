@@ -24,7 +24,7 @@ const { requireRole } = require('../middleware/roleMiddleware');
 
 // College Admin & Super Admin routes
 router.get('/stats', verifyToken, requireRole('college_admin', 'super_admin'), getAdminStats);
-router.get('/audit', verifyToken, requireRole('college_admin', 'super_admin'), getAuditLogs);
+router.get('/audit', verifyToken, requireRole('teacher', 'college_admin', 'super_admin'), getAuditLogs);
 router.put('/college', verifyToken, requireRole('college_admin', 'super_admin'), updateCollege);
 
 // Department & Subject management
