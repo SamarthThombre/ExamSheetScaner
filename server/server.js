@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const seedInitialData = require('./config/seed');
 const healthRoutes = require('./routes/healthRoutes');
 const authRoutes = require('./routes/authRoutes');
 const batchRoutes = require('./routes/batchRoutes');
@@ -97,7 +98,8 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   await connectDB();
-  app.listen(PORT, () => {
+  await seedInitialData();
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
   });
 };
