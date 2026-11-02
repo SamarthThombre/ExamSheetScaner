@@ -91,12 +91,9 @@ const seedInitialData = async () => {
         name: 'Samarth Thombre',
         email: 'samthombre91@gmail.com',
         password: 'password123',
-        role: 'student',
-        college: college._id,
-        department: mcaDept._id,
-        rollNumber: '0801CA231001',
-        enrolmentNo: '0801CA231001',
-        enrolledSubjects: ['CT10716', 'CT10222', 'CT10444', 'CT10666', 'CT10888']
+        role: 'super_admin',
+        college: null,
+        department: null
       },
       {
         name: 'Rahul Verma (Student)',
